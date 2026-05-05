@@ -1,4 +1,4 @@
-import 'session_user.dart';
+import 'package:mobile/src/models/session_user.dart';
 
 class Profile {
   const Profile({

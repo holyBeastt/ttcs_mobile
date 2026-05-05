@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-import 'screens/auth/login_screen.dart';
-import 'screens/home/home_shell.dart';
-import 'services/announcement_service.dart';
-import 'services/api_client.dart';
-import 'services/auth_service.dart';
-import 'services/guest_lecturer_service.dart';
-import 'services/profile_service.dart';
-import 'state/auth_controller.dart';
+import 'package:mobile/src/screens/auth/login_screen.dart';
+import 'package:mobile/src/screens/home/home_shell.dart';
+import 'package:mobile/src/services/announcement_service.dart';
+import 'package:mobile/src/services/api_client.dart';
+import 'package:mobile/src/services/auth_service.dart';
+import 'package:mobile/src/services/guest_lecturer_service.dart';
+import 'package:mobile/src/services/profile_service.dart';
+import 'package:mobile/src/state/auth_controller.dart';
 
 class MobileApp extends StatefulWidget {
   const MobileApp({super.key});

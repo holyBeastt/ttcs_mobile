@@ -1,5 +1,5 @@
-import '../models/guest_lecturer.dart';
-import 'api_client.dart';
+import 'package:mobile/src/models/guest_lecturer.dart';
+import 'package:mobile/src/services/api_client.dart';
 
 class GuestLecturerService {
   GuestLecturerService(this._apiClient);

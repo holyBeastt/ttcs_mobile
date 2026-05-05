@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../models/guest_lecturer.dart';
-import '../../services/guest_lecturer_service.dart';
-import '../../widgets/app_async_view.dart';
+import 'package:mobile/src/models/guest_lecturer.dart';
+import 'package:mobile/src/services/guest_lecturer_service.dart';
+import 'package:mobile/src/widgets/app_async_view.dart';
 
 class GuestLecturerListScreen extends StatefulWidget {
   const GuestLecturerListScreen({
@@ -81,17 +81,17 @@ class _GuestLecturerListScreenState extends State<GuestLecturerListScreen> {
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 const SizedBox(height: 12),
-                Text('Department: ${detail.departmentCode}'),
-                Text('Degree: ${detail.academicDegree}'),
-                Text('Position: ${detail.position}'),
-                Text('Subject: ${detail.mainSubject}'),
-                Text('Phone: ${detail.phone}'),
-                Text('Teaching status: ${detail.teachingStatus}'),
-                Text('Approval status: ${detail.approvalStatus}'),
+                Text('Phòng ban: ${detail.departmentCode}'),
+                Text('Học vị: ${detail.academicDegree}'),
+                Text('Chức vụ: ${detail.position}'),
+                Text('Môn học: ${detail.mainSubject}'),
+                Text('Số điện thoại: ${detail.phone}'),
+                Text('Trạng thái giảng dạy: ${detail.teachingStatus}'),
+                Text('Trạng thái phê duyệt: ${detail.approvalStatus}'),
                 if (detail.contractSummary != null &&
                     detail.contractSummary!.isNotEmpty) ...[
                   const SizedBox(height: 12),
-                  Text('Contract summary: ${detail.contractSummary}'),
+                  Text('Tóm tắt hợp đồng: ${detail.contractSummary}'),
                 ],
               ],
             ),
@@ -113,7 +113,7 @@ class _GuestLecturerListScreenState extends State<GuestLecturerListScreen> {
                 child: TextField(
                   controller: _searchController,
                   decoration: const InputDecoration(
-                    hintText: 'Search guest lecturer',
+                    hintText: 'Tìm kiếm giảng viên thỉnh giảng',
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.search),
                   ),
@@ -123,7 +123,7 @@ class _GuestLecturerListScreenState extends State<GuestLecturerListScreen> {
               const SizedBox(width: 12),
               FilledButton(
                 onPressed: _load,
-                child: const Text('Search'),
+                child: const Text('Tìm kiếm'),
               ),
             ],
           ),
@@ -136,7 +136,7 @@ class _GuestLecturerListScreenState extends State<GuestLecturerListScreen> {
               error: _error,
               onRetry: _load,
               empty: _items.isEmpty,
-              emptyMessage: 'No guest lecturers found.',
+              emptyMessage: 'Không tìm thấy giảng viên thỉnh giảng nào.',
               child: ListView.separated(
                 physics: const AlwaysScrollableScrollPhysics(),
                 padding: const EdgeInsets.all(16),

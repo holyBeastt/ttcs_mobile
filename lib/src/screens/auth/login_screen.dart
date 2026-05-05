@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../state/auth_controller.dart';
+import 'package:mobile/src/state/auth_controller.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({
@@ -40,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (!success) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(widget.authController.error ?? 'Login failed'),
+          content: Text(widget.authController.error ?? 'Đăng nhập thất bại'),
         ),
       );
     }
@@ -67,24 +67,24 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          'Lecturer Mobile',
+                          'Giảng viên (Dùng trên điện thoại)',
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          'Phase 1 mobile app for announcements, guest lecturers, and profile.',
+                          'Ứng dụng giai đoạn 1 cho thông báo, giảng viên thỉnh giảng và hồ sơ cá nhân.',
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                         const SizedBox(height: 24),
                         TextFormField(
                           controller: _usernameController,
                           decoration: const InputDecoration(
-                            labelText: 'Username',
+                            labelText: 'Tên đăng nhập',
                             border: OutlineInputBorder(),
                           ),
                           validator: (value) {
                             if (value == null || value.trim().isEmpty) {
-                              return 'Username is required';
+                              return 'Tên đăng nhập là bắt buộc';
                             }
                             return null;
                           },
@@ -94,12 +94,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           controller: _passwordController,
                           obscureText: true,
                           decoration: const InputDecoration(
-                            labelText: 'Password',
+                            labelText: 'Mật khẩu',
                             border: OutlineInputBorder(),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Password is required';
+                              return 'Mật khẩu là bắt buộc';
                             }
                             return null;
                           },
@@ -115,13 +115,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                     strokeWidth: 2,
                                   ),
                                 )
-                              : const Text('Sign In'),
+                              : const Text('Đăng nhập'),
                         ),
                         const SizedBox(height: 12),
-                        Text(
-                          'Set backend URL with --dart-define=API_BASE_URL=http://<host>:8888',
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
                       ],
                     ),
                   ),

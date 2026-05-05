@@ -8,7 +8,7 @@ class AppAsyncView extends StatelessWidget {
     required this.onRetry,
     required this.child,
     this.empty = false,
-    this.emptyMessage = 'No data available.',
+    this.emptyMessage = 'Không có dữ liệu.',
   });
 
   final bool isLoading;
@@ -38,7 +38,7 @@ class AppAsyncView extends StatelessWidget {
               const SizedBox(height: 12),
               ElevatedButton(
                 onPressed: onRetry,
-                child: const Text('Retry'),
+                child: const Text('Thử lại'),
               ),
             ],
           ),

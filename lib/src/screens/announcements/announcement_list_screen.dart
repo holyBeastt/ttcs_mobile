@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../models/announcement.dart';
-import '../../models/session_user.dart';
-import '../../services/announcement_service.dart';
-import '../../widgets/app_async_view.dart';
+import 'package:mobile/src/models/announcement.dart';
+import 'package:mobile/src/models/session_user.dart';
+import 'package:mobile/src/services/announcement_service.dart';
+import 'package:mobile/src/widgets/app_async_view.dart';
 
 class AnnouncementListScreen extends StatefulWidget {
   const AnnouncementListScreen({
@@ -77,9 +77,9 @@ class _AnnouncementListScreenState extends State<AnnouncementListScreen> {
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 const SizedBox(height: 12),
-                Text('Department: ${detail.departmentCode}'),
-                Text('Deadline: ${_formatDate(detail.deadline)}'),
-                Text('Expired: ${detail.expired ? 'Yes' : 'No'}'),
+                Text('Phòng ban: ${detail.departmentCode}'),
+                Text('Hạn chót: ${_formatDate(detail.deadline)}'),
+                Text('Hết hạn: ${detail.expired ? 'Có' : 'Không'}'),
                 const SizedBox(height: 16),
                 Text(detail.message),
               ],
@@ -104,7 +104,7 @@ class _AnnouncementListScreenState extends State<AnnouncementListScreen> {
         error: _error,
         onRetry: _load,
         empty: _announcements.isEmpty,
-        emptyMessage: 'No announcements found.',
+        emptyMessage: 'Không tìm thấy thông báo nào.',
         child: ListView.separated(
           physics: const AlwaysScrollableScrollPhysics(),
           padding: const EdgeInsets.all(16),

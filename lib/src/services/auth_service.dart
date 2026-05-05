@@ -1,5 +1,5 @@
-import '../models/session_user.dart';
-import 'api_client.dart';
+import 'package:mobile/src/models/session_user.dart';
+import 'package:mobile/src/services/api_client.dart';
 
 class AuthService {
   AuthService(this._apiClient);

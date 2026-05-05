@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../services/announcement_service.dart';
-import '../../services/guest_lecturer_service.dart';
-import '../../services/profile_service.dart';
-import '../../state/auth_controller.dart';
-import '../announcements/announcement_list_screen.dart';
-import '../guest_lecturers/guest_lecturer_list_screen.dart';
-import '../profile/profile_screen.dart';
+import 'package:mobile/src/services/announcement_service.dart';
+import 'package:mobile/src/services/guest_lecturer_service.dart';
+import 'package:mobile/src/services/profile_service.dart';
+import 'package:mobile/src/state/auth_controller.dart';
+import 'package:mobile/src/screens/announcements/announcement_list_screen.dart';
+import 'package:mobile/src/screens/guest_lecturers/guest_lecturer_list_screen.dart';
+import 'package:mobile/src/screens/profile/profile_screen.dart';
 
 class HomeShell extends StatefulWidget {
   const HomeShell({
@@ -48,10 +48,10 @@ class _HomeShellState extends State<HomeShell> {
       appBar: AppBar(
         title: Text(
           _currentIndex == 0
-              ? 'Announcements'
+              ? 'Thông báo'
               : _currentIndex == 1
-                  ? 'Guest Lecturers'
-                  : 'My Profile',
+                  ? 'Giảng viên mời'
+                  : 'Hồ sơ',
         ),
         actions: [
           Padding(
@@ -66,7 +66,7 @@ class _HomeShellState extends State<HomeShell> {
           IconButton(
             onPressed: widget.authController.logout,
             icon: const Icon(Icons.logout),
-            tooltip: 'Logout',
+            tooltip: 'Đăng xuất',
           ),
         ],
       ),
@@ -82,17 +82,17 @@ class _HomeShellState extends State<HomeShell> {
           NavigationDestination(
             icon: Icon(Icons.notifications_outlined),
             selectedIcon: Icon(Icons.notifications),
-            label: 'Announcements',
+            label: 'Thông báo',
           ),
           NavigationDestination(
             icon: Icon(Icons.badge_outlined),
             selectedIcon: Icon(Icons.badge),
-            label: 'Guest Lecturers',
+            label: 'Giảng viên mời',
           ),
           NavigationDestination(
             icon: Icon(Icons.person_outline),
             selectedIcon: Icon(Icons.person),
-            label: 'Profile',
+            label: 'Hồ sơ',
           ),
         ],
       ),

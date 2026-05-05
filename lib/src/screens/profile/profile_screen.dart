@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../models/profile.dart';
-import '../../models/session_user.dart';
-import '../../services/profile_service.dart';
-import '../../widgets/app_async_view.dart';
+import 'package:mobile/src/models/profile.dart';
+import 'package:mobile/src/models/session_user.dart';
+import 'package:mobile/src/services/profile_service.dart';
+import 'package:mobile/src/widgets/app_async_view.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({
@@ -108,7 +108,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Profile updated')),
+        const SnackBar(content: Text('Cập nhật thông tin thành công')),
       );
     } catch (error) {
       if (!mounted) return;
@@ -148,7 +148,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                       const SizedBox(height: 8),
-                      Text('Department: ${_profile!.departmentCode}'),
+                      Text('Phòng ban: ${_profile!.departmentCode}'),
                     ],
                   ),
                 ),
@@ -163,36 +163,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       _buildField(
                         controller: _fullNameController,
-                        label: 'Full name',
+                        label: 'Họ và tên',
                       ),
                       _buildField(
                         controller: _dateOfBirthController,
-                        label: 'Date of birth',
+                        label: 'Ngày sinh',
                         hintText: 'YYYY-MM-DD',
                       ),
                       _buildField(
                         controller: _academicDegreeController,
-                        label: 'Academic degree',
+                        label: 'Học vị',
                       ),
                       _buildField(
                         controller: _positionController,
-                        label: 'Position',
+                        label: 'Chức vụ',
                       ),
                       _buildField(
                         controller: _salaryCoefficientController,
-                        label: 'Salary coefficient',
+                        label: 'Hệ số lương',
                       ),
                       _buildField(
                         controller: _salaryController,
-                        label: 'Salary',
+                        label: 'Lương',
                       ),
                       _buildField(
                         controller: _reductionPercentController,
-                        label: 'Reduction percent',
+                        label: 'Phần trăm giảm trừ',
                       ),
                       _buildField(
                         controller: _reductionReasonController,
-                        label: 'Reduction reason',
+                        label: 'Lý do giảm trừ',
                         maxLines: 3,
                       ),
                       const SizedBox(height: 20),
@@ -208,7 +208,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     strokeWidth: 2,
                                   ),
                                 )
-                              : const Text('Save profile'),
+                              : const Text('Lưu thông tin'),
                         ),
                       ),
                     ],
@@ -240,7 +240,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         validator: (value) {
           if (value == null || value.trim().isEmpty) {
-            return '$label is required';
+            return '$label là bắt buộc';
           }
           return null;
         },

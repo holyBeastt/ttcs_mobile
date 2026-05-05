@@ -1,5 +1,5 @@
-import '../models/announcement.dart';
-import 'api_client.dart';
+import 'package:mobile/src/models/announcement.dart';
+import 'package:mobile/src/services/api_client.dart';
 
 class AnnouncementService {
   AnnouncementService(this._apiClient);

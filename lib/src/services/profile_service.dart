@@ -1,6 +1,6 @@
-import '../models/session_user.dart';
-import '../models/profile.dart';
-import 'api_client.dart';
+import 'package:mobile/src/models/session_user.dart';
+import 'package:mobile/src/models/profile.dart';
+import 'package:mobile/src/services/api_client.dart';
 
 class ProfileService {
   ProfileService(this._apiClient);

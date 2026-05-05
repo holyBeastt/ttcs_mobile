@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import '../config/app_config.dart';
+import 'package:mobile/src/config/app_config.dart';
 
 class ApiException implements Exception {
   const ApiException(this.message, {this.statusCode});
