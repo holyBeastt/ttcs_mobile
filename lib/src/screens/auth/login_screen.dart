@@ -14,6 +14,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  bool _rememberMe = false;
 
   @override
   void dispose() {
@@ -31,6 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final success = await auth.login(
       username: _usernameController.text.trim(),
       password: _passwordController.text,
+      rememberMe: _rememberMe,
     );
 
     if (!mounted) return;
@@ -147,7 +149,21 @@ class _LoginScreenState extends State<LoginScreen> {
                               return null;
                             },
                           ),
-                          const SizedBox(height: 32),
+                          const SizedBox(height: 8),
+                          CheckboxListTile(
+                            value: _rememberMe,
+                            onChanged: (val) {
+                              if (val != null) {
+                                setState(() {
+                                  _rememberMe = val;
+                                });
+                              }
+                            },
+                            title: const Text('Ghi nhớ đăng nhập'),
+                            controlAffinity: ListTileControlAffinity.leading,
+                            contentPadding: EdgeInsets.zero,
+                          ),
+                          const SizedBox(height: 16),
                           SizedBox(
                             height: 56,
                             child: FilledButton(

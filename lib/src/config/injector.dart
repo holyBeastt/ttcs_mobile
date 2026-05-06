@@ -5,10 +5,19 @@ import 'package:mobile/src/services/announcement_service.dart';
 import 'package:mobile/src/services/guest_lecturer_service.dart';
 import 'package:mobile/src/services/profile_service.dart';
 import 'package:mobile/src/state/auth_controller.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:mobile/src/services/local_storage_service.dart';
 
 final getIt = GetIt.instance;
 
-void setupInjector() {
+Future<void> setupInjector() async {
+  final prefs = await SharedPreferences.getInstance();
+  const secureStorage = FlutterSecureStorage();
+
+  getIt.registerLazySingleton<LocalStorageService>(
+      () => LocalStorageService(secureStorage, prefs));
+
   getIt.registerLazySingleton<ApiClient>(() => ApiClient());
   
   // Services
@@ -23,5 +32,5 @@ void setupInjector() {
   
   // Controllers
   getIt.registerLazySingleton<AuthController>(
-      () => AuthController(getIt<AuthService>()));
+      () => AuthController(getIt<AuthService>(), getIt<LocalStorageService>()));
 }
