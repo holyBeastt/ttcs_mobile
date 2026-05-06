@@ -34,23 +34,25 @@ For **every** task requested by the user, you MUST follow this strict structural
 - **Do NOT** break existing routing or object structures. Keep functions atomic and readable.
 
 ### 3. REVIEW (CRITICAL)
-Perform a rigorous self-review of your changes. Actively check for:
-- Logical execution errors.
+Perform a rigorous, line-by-line self-review of your changes. Actively check for:
+- Logical execution errors and missing imports.
 - Sub-optimal architecture decisions.
 - Violations of the Clean Architecture boundary limits.
 - Incorrect DI initializations or loops.
-> 💡 If flaws are detected, immediately refactor the code before moving to the next steps.
+> 💡 If flaws, compilation warnings, or missing dependencies are detected, immediately revert or refactor the code before moving to the next steps. ZERO TOLERANCE for syntax errors.
 
 ### 4. TEST
-Always defend your code.
+Always defend your code. Code that isn't tested is broken code.
 - Add or update testing suites where applicable (`Unit tests` for UseCase/Repos, `Bloc tests` for event mappings).
 - Utilize fakes/mocks for dependencies where needed.
 - Ensure all logic tests return deterministic results without producing live network payloads.
+- If no tests exist in the codebase, you must manually run build commands to ensure nothing was broken.
 
-### 5. VERIFY
-- Utilize analyzer tools (e.g., `flutter analyze`) to manually guarantee the project builds.
+### 5. VERIFY (MANDATORY EXECUTION)
+- You MUST utilize analyzer tools (e.g., `flutter analyze`) and WAIT for it to fully complete and return exit code 0.
+- You MUST run a build command (e.g., `flutter build apk` or `flutter test`) to manually guarantee the project compiles flawlessly. DO NOT terminate verification commands early.
 - Ensure no runtime DI errors or unused dependencies persist.
-- Verify the feature operates precisely as logically mapped.
+- Validate that the feature operates precisely as logically mapped without causing regressions in upstream widgets.
 
 ### 6. COMMIT
 Generate a strictly formatted `Git` commit. To distinguish your autonomous actions from humans, always prepend `[AI]` to the start of your message:
@@ -59,7 +61,7 @@ Generate a strictly formatted `Git` commit. To distinguish your autonomous actio
   - `[AI] feat: add login bloc routing`
   - `[AI] fix: resolve DI initialization issue in auth repository`
   - `[AI] refactor: improve ui container styling`
-> ⚠️ **CRITICAL**: Only commit when the code compiles, the tests pass, and the automated review is successfully completed.
+> ⚠️ **CRITICAL**: Only commit when the code definitively compiles, the tests unequivocally pass, `flutter analyze` returns 0 issues, and the automated review is meticulously completed. Do not guess.
 
 ### 7. PUSH
 - Once changes are committed, execute a secure `git push` to synchronize changes with the remote (`origin`) repository.
@@ -79,8 +81,9 @@ Generate a strictly formatted `Git` commit. To distinguish your autonomous actio
 
 ## 🛡 Strict Rules & Error Handling
 
-- **NEVER** commit broken or untested code.
-- **NEVER** skip the review or verification loops.
+- **NEVER** commit broken, unverified, or untested code.
+- **NEVER** skip the review or verification loops. You must wait for verification commands to absolutely finish.
+- **ALWAYS** check your imports after performing partial text replacements.
 - **ALWAYS** prefer safe, highly-readable changes over "clever" shortcuts.
 - **If you are unsure**, do not guess. Stop and ask the user for clarification.
 - Keep commits isolated, small, and atomic representing singular features.
