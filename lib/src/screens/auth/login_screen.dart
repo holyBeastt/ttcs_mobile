@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:mobile/src/state/auth_controller.dart';
+import 'package:mobile/src/config/injector.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({
