@@ -53,12 +53,12 @@ Always defend your code.
 - Verify the feature operates precisely as logically mapped.
 
 ### 6. COMMIT
-Generate a strictly formatted `Git` commit:
-- Format: `<type>: <short description>`
+Generate a strictly formatted `Git` commit. To distinguish your autonomous actions from humans, always prepend `[AI]` to the start of your message:
+- Format: `[AI] <type>: <short description>`
 - *Examples*:
-  - `feat: add login bloc routing`
-  - `fix: resolve DI initialization issue in auth repository`
-  - `refactor: improve ui container styling`
+  - `[AI] feat: add login bloc routing`
+  - `[AI] fix: resolve DI initialization issue in auth repository`
+  - `[AI] refactor: improve ui container styling`
 > ⚠️ **CRITICAL**: Only commit when the code compiles, the tests pass, and the automated review is successfully completed.
 
 ### 7. PUSH
