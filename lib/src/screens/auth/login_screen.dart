@@ -4,12 +4,7 @@ import 'package:mobile/src/state/auth_controller.dart';
 import 'package:mobile/src/config/injector.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({
-    super.key,
-    required this.authController,
-  });
-
-  final AuthController authController;
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -32,7 +27,8 @@ class _LoginScreenState extends State<LoginScreen> {
       return;
     }
 
-    final success = await widget.authController.login(
+    final auth = getIt<AuthController>();
+    final success = await auth.login(
       username: _usernameController.text.trim(),
       password: _passwordController.text,
     );
@@ -41,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (!success) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(widget.authController.error ?? 'Đăng nhập thất bại'),
+          content: Text(auth.error ?? 'Đăng nhập thất bại'),
         ),
       );
     }
@@ -85,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Container(
                               padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
-                                color: theme.primaryColor.withOpacity(0.1),
+                                color: theme.primaryColor.withValues(alpha: 0.1),
                                 shape: BoxShape.circle,
                               ),
                               child: Icon(

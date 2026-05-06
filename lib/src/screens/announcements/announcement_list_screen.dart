@@ -5,15 +5,14 @@ import 'package:mobile/src/models/announcement.dart';
 import 'package:mobile/src/models/session_user.dart';
 import 'package:mobile/src/services/announcement_service.dart';
 import 'package:mobile/src/widgets/app_async_view.dart';
+import 'package:mobile/src/config/injector.dart';
 
 class AnnouncementListScreen extends StatefulWidget {
   const AnnouncementListScreen({
     super.key,
-    required this.service,
     required this.user,
   });
 
-  final AnnouncementService service;
   final SessionUser user;
 
   @override
@@ -38,7 +37,7 @@ class _AnnouncementListScreenState extends State<AnnouncementListScreen> {
     });
 
     try {
-      final items = await widget.service.getAnnouncements(widget.user.departmentCode);
+      final items = await getIt<AnnouncementService>().getAnnouncements(widget.user.departmentCode);
       setState(() {
         _announcements = items;
       });
@@ -54,7 +53,7 @@ class _AnnouncementListScreenState extends State<AnnouncementListScreen> {
   }
 
   Future<void> _openDetail(Announcement item) async {
-    final detail = await widget.service.getAnnouncementDetail(
+    final detail = await getIt<AnnouncementService>().getAnnouncementDetail(
       widget.user.departmentCode,
       item.id,
     );

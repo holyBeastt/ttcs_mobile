@@ -1,26 +1,13 @@
 import 'package:flutter/material.dart';
 
-import 'package:mobile/src/services/announcement_service.dart';
-import 'package:mobile/src/services/guest_lecturer_service.dart';
-import 'package:mobile/src/services/profile_service.dart';
 import 'package:mobile/src/state/auth_controller.dart';
 import 'package:mobile/src/screens/announcements/announcement_list_screen.dart';
 import 'package:mobile/src/screens/guest_lecturers/guest_lecturer_list_screen.dart';
 import 'package:mobile/src/screens/profile/profile_screen.dart';
+import 'package:mobile/src/config/injector.dart';
 
 class HomeShell extends StatefulWidget {
-  const HomeShell({
-    super.key,
-    required this.authController,
-    required this.announcementService,
-    required this.guestLecturerService,
-    required this.profileService,
-  });
-
-  final AuthController authController;
-  final AnnouncementService announcementService;
-  final GuestLecturerService guestLecturerService;
-  final ProfileService profileService;
+  const HomeShell({super.key});
 
   @override
   State<HomeShell> createState() => _HomeShellState();
@@ -31,17 +18,12 @@ class _HomeShellState extends State<HomeShell> {
 
   @override
   Widget build(BuildContext context) {
-    final user = widget.authController.currentUser!;
+    final authController = getIt<AuthController>();
+    final user = authController.currentUser!;
     final pages = [
-      AnnouncementListScreen(
-        service: widget.announcementService,
-        user: user,
-      ),
-      GuestLecturerListScreen(service: widget.guestLecturerService),
-      ProfileScreen(
-        service: widget.profileService,
-        user: user,
-      ),
+      AnnouncementListScreen(user: user),
+      const GuestLecturerListScreen(),
+      ProfileScreen(user: user),
     ];
 
     return Scaffold(
@@ -64,7 +46,7 @@ class _HomeShellState extends State<HomeShell> {
             ),
           ),
           IconButton(
-            onPressed: widget.authController.logout,
+            onPressed: getIt<AuthController>().logout,
             icon: const Icon(Icons.logout),
             tooltip: 'Đăng xuất',
           ),

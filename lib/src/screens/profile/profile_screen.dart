@@ -4,15 +4,14 @@ import 'package:mobile/src/models/profile.dart';
 import 'package:mobile/src/models/session_user.dart';
 import 'package:mobile/src/services/profile_service.dart';
 import 'package:mobile/src/widgets/app_async_view.dart';
+import 'package:mobile/src/config/injector.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({
     super.key,
-    required this.service,
     required this.user,
   });
 
-  final ProfileService service;
   final SessionUser user;
 
   @override
@@ -61,7 +60,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
 
     try {
-      final profile = await widget.service.getProfile(widget.user);
+      final profile = await getIt<ProfileService>().getProfile(widget.user);
       _profile = profile;
       _fullNameController.text = profile.fullName;
       _dateOfBirthController.text = profile.dateOfBirth;
@@ -101,7 +100,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         reductionReason: _reductionReasonController.text.trim(),
       );
 
-      final saved = await widget.service.updateProfile(updated, widget.user);
+      final saved = await getIt<ProfileService>().updateProfile(updated, widget.user);
       setState(() {
         _profile = saved;
       });

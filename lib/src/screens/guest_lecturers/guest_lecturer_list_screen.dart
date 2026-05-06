@@ -3,14 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:mobile/src/models/guest_lecturer.dart';
 import 'package:mobile/src/services/guest_lecturer_service.dart';
 import 'package:mobile/src/widgets/app_async_view.dart';
+import 'package:mobile/src/config/injector.dart';
 
 class GuestLecturerListScreen extends StatefulWidget {
-  const GuestLecturerListScreen({
-    super.key,
-    required this.service,
-  });
-
-  final GuestLecturerService service;
+  const GuestLecturerListScreen({super.key});
 
   @override
   State<GuestLecturerListScreen> createState() =>
@@ -43,7 +39,7 @@ class _GuestLecturerListScreenState extends State<GuestLecturerListScreen> {
     });
 
     try {
-      final items = await widget.service.getGuestLecturers(
+      final items = await getIt<GuestLecturerService>().getGuestLecturers(
         keyword: _searchController.text.trim(),
       );
       setState(() {
@@ -61,7 +57,7 @@ class _GuestLecturerListScreenState extends State<GuestLecturerListScreen> {
   }
 
   Future<void> _showDetail(GuestLecturer item) async {
-    final detail = await widget.service.getGuestLecturerDetail(item.id);
+    final detail = await getIt<GuestLecturerService>().getGuestLecturerDetail(item.id);
     if (detail == null || !mounted) return;
 
     showModalBottomSheet<void>(
