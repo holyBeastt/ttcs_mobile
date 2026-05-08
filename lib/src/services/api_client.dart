@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import 'package:mobile/src/config/app_config.dart';
+import 'package:mobile/src/services/local_storage_service.dart';
 
 class ApiException implements Exception {
   const ApiException(this.message, {this.statusCode});
@@ -17,9 +18,12 @@ class ApiException implements Exception {
 class ApiClient {
   ApiClient({
     http.Client? httpClient,
-  }) : _httpClient = httpClient ?? http.Client();
+    required LocalStorageService localStorageService,
+  })  : _httpClient = httpClient ?? http.Client(),
+        _localStorageService = localStorageService;
 
   final http.Client _httpClient;
+  final LocalStorageService _localStorageService;
   String? _sessionCookie;
 
   Future<dynamic> get(
@@ -77,6 +81,7 @@ class ApiClient {
 
   void clearSession() {
     _sessionCookie = null;
+    _localStorageService.clearTokens();
   }
 
   Future<dynamic> _request(
@@ -102,8 +107,24 @@ class ApiClient {
       );
     }
 
+    // Automatically save tokens if present in response
+    if (json is Map<String, dynamic>) {
+      final accessToken = json['accessToken'] as String?;
+      final refreshToken = json['refreshToken'] as String?;
+      if (accessToken != null || refreshToken != null) {
+        await _localStorageService.saveTokens(
+          accessToken: accessToken,
+          refreshToken: refreshToken,
+        );
+      }
+    }
+
     if (response.statusCode >= 200 && response.statusCode < 300) {
       return json;
+    }
+
+    if (response.statusCode == 401) {
+      clearSession();
     }
 
     throw ApiException(
@@ -122,6 +143,11 @@ class ApiClient {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
     };
+
+    final token = await _localStorageService.getAccessToken();
+    if (token != null && token.isNotEmpty) {
+      headers['Authorization'] = 'Bearer $token';
+    }
 
     if (_sessionCookie != null && _sessionCookie!.isNotEmpty) {
       headers['Cookie'] = _sessionCookie!;

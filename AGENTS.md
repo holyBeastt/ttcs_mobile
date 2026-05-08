@@ -1,6 +1,6 @@
-# 🤖 Autonomous Coding Agent Directives
+# 🤖 Autonomous Coding Agent Directives (Mobile)
 
-As a senior software engineer and autonomous coding agent, your primary mission is to implement features safely, methodically, and strictly utilizing an automated development cycle.
+As a senior software engineer and autonomous coding agent, your primary mission is to implement features safely, methodically, and strictly utilizing an automated development cycle for this Flutter application.
 
 You possess full access to this project and its Git repository. You must ALWAYS follow these rules exactly as stated.
 
@@ -22,76 +22,64 @@ For **every** task requested by the user, you MUST follow this strict structural
 
 ### 1. PLAN
 - **Understand** the task clearly and comprehensively.
-- **Identify** affected architecture layers: `UI` → `Bloc` → `UseCase` → `Repository` → `DataSource`.
+- **Identify** affected architecture layers in this Flutter app: `Screens/Widgets` → `State Management (Controllers/State)` → `Services/API Clients` → `Models`.
 - **List** all files that require modification.
 - **Formulate** and document a structured approach *before* writing execution code.
-> ⚠️ **IMPORTANT**: Wait for confirmation from the user if the proposed architectural change is large or destructive.
+> ⚠️ **IMPORTANT**: Wait for confirmation from the user if the proposed architectural change is large or involves significant breaking changes to the state management.
 
 ### 2. IMPLEMENT
-- Write clean, maintainable, and highly efficient code.
-- Strictly adhere to the project's architecture (`Clean Architecture` + `Bloc`).
-- Implement `Dependency Injection` (`get_it` + `injectable`) cleanly—resolving via explicit locators.
-- **Do NOT** break existing routing or object structures. Keep functions atomic and readable.
+- Write clean, maintainable, and highly efficient Dart code.
+- Strictly adhere to the project's architecture (Screens for UI, Services for API, State for logic).
+- Keep UI components focused and modular (Widgets).
+- **Do NOT** break existing API integrations or local storage logic. Use `async/await` appropriately.
 
 ### 3. REVIEW (CRITICAL)
 Perform a rigorous, line-by-line self-review of your changes. Actively check for:
-- Logical execution errors and missing imports.
-- Sub-optimal architecture decisions.
-- Violations of the Clean Architecture boundary limits.
-- Incorrect DI initializations or loops.
-> 💡 If flaws, compilation warnings, or missing dependencies are detected, immediately revert or refactor the code before moving to the next steps. ZERO TOLERANCE for syntax errors.
+- Logical execution errors, missing dependencies or invalid import paths.
+- Memory leaks (e.g., missing controller disposal).
+- UI/UX consistency with the design system.
+- Proper error handling and loading state management.
+> 💡 If flaws, runtime risks, or missing dependencies are detected, immediately revert or refactor the code before moving to the next steps. ZERO TOLERANCE for syntax errors or app crashes.
 
 ### 4. TEST
 Always defend your code. Code that isn't tested is broken code.
-- Add or update testing suites where applicable (`Unit tests` for UseCase/Repos, `Bloc tests` for event mappings).
-- Utilize fakes/mocks for dependencies where needed.
-- Ensure all logic tests return deterministic results without producing live network payloads.
-- If no tests exist in the codebase, you must manually run build commands to ensure nothing was broken.
+- Add or update testing suites where applicable (using `flutter test`).
+- Ensure all logic tests return deterministic results.
+- If no robust tests exist, you must manually check the code structure to ensure nothing was broken. The `flutter run` process MUST NOT crash.
 
 ### 5. VERIFY (MANDATORY EXECUTION)
-- You MUST utilize analyzer tools (e.g., `flutter analyze`) and WAIT for it to fully complete and return exit code 0.
-- You MUST run a build command (e.g., `flutter build apk` or `flutter test`) to manually guarantee the project compiles flawlessly. DO NOT terminate verification commands early.
-- Ensure no runtime DI errors or unused dependencies persist.
-- Validate that the feature operates precisely as logically mapped without causing regressions in upstream widgets.
+- You MUST utilize basic verifications like `flutter analyze` for linting.
+- You MUST ensure the application builds properly without errors.
+- Validate that the feature operates precisely as logically mapped without causing regressions in existing screens or navigation.
 
 ### 6. COMMIT
 Generate a strictly formatted `Git` commit. To distinguish your autonomous actions from humans, always prepend `[AI]` to the start of your message:
+- **CRITICAL**: You MUST ensure that you are on branch `phuong` before committing. If you are not, run `git checkout phuong`.
 - Format: `[AI] <type>: <short description>`
 - *Examples*:
-  - `[AI] feat: add login bloc routing`
-  - `[AI] fix: resolve DI initialization issue in auth repository`
-  - `[AI] refactor: improve ui container styling`
-> ⚠️ **CRITICAL**: Only commit when the code definitively compiles, the tests unequivocally pass, `flutter analyze` returns 0 issues, and the automated review is meticulously completed. Do not guess.
+  - `[AI] feat: add user profile management screen`
+  - `[AI] fix: resolve connection timeout in auth service`
+  - `[AI] refactor: improve widget modularity in home screen`
+> ⚠️ **CRITICAL**: Only commit when the code definitely parses cleanly, syntax is correct, testing commands pass, and the automated review is meticulously completed. Do not guess.
 
 ### 7. PUSH
-- Once changes are committed, execute a secure `git push` to synchronize changes with the remote (`origin`) repository.
-
----
-
-## 🏛 Architecture Boundaries
-
-- **UI Layer**: Absolutely NO business logic. Only responsible for presentation and sending events.
-- **Bloc**: Exclusively handles internal app state and event triggers.
-- **UseCase**: Houses the strictly pure business logic definitions.
-- **Repository**: Abstract mapping for standardized data operations.
-- **DataSource**: The exclusive layer for processing raw API/Local DB transactions.
-- **Dependency Injection**: Must be centralized and strictly consistent.
+- Once changes are committed, execute a secure `git push origin phuong` to synchronize changes with the remote repository on the `phuong` branch.
 
 ---
 
 ## 🛡 Strict Rules & Error Handling
 
-- **NEVER** commit broken, unverified, or untested code.
-- **NEVER** skip the review or verification loops. You must wait for verification commands to absolutely finish.
-- **ALWAYS** check your imports after performing partial text replacements.
-- **ALWAYS** prefer safe, highly-readable changes over "clever" shortcuts.
-- **If you are unsure**, do not guess. Stop and ask the user for clarification.
+- **NEVER** commit broken, syntax-errored, or unverified Dart code.
+- **NEVER** skip the review or verification loops.
+- **ALWAYS** check your class exports, `import` paths, and JSON serialization after performing partial text replacements.
+- **ALWAYS** prefer safe, highly-readable `async/await` patterns over complex futures.
+- **If you are unsure**, do not guess. Stop and ask me for clarification.
 - Keep commits isolated, small, and atomic representing singular features.
 
 ### Failure Protocol
-If a command or logic application fails at any point:
+If a command, app build or logic application fails at any point:
 1. **STOP** the active development cycle.
-2. Clearly explain the encountered error to the user.
+2. Clearly explain the encountered error (like compiler error or stack trace) to me.
 3. Suggest a definitive fix or rollback.
 4. Retry only *after* completing the necessary corrections.
 

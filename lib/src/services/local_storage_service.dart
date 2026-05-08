@@ -10,6 +10,8 @@ class LocalStorageService {
   static const String _keyUsername = 'RESERVED_USERNAME';
   static const String _keyPassword = 'RESERVED_PASSWORD';
   static const String _keyRememberMe = 'REMEMBER_ME_FLAG';
+  static const String _keyAccessToken = 'ACCESS_TOKEN';
+  static const String _keyRefreshToken = 'REFRESH_TOKEN';
 
   Future<void> saveCredentials(String username, String password) async {
     await _sharedPreferences.setBool(_keyRememberMe, true);
@@ -34,5 +36,22 @@ class LocalStorageService {
     await _sharedPreferences.setBool(_keyRememberMe, false);
     await _sharedPreferences.remove(_keyUsername);
     await _secureStorage.delete(key: _keyPassword);
+  }
+
+  Future<void> saveTokens({String? accessToken, String? refreshToken}) async {
+    if (accessToken != null) {
+      await _secureStorage.write(key: _keyAccessToken, value: accessToken);
+    }
+    if (refreshToken != null) {
+      await _secureStorage.write(key: _keyRefreshToken, value: refreshToken);
+    }
+  }
+
+  Future<String?> getAccessToken() => _secureStorage.read(key: _keyAccessToken);
+  Future<String?> getRefreshToken() => _secureStorage.read(key: _keyRefreshToken);
+
+  Future<void> clearTokens() async {
+    await _secureStorage.delete(key: _keyAccessToken);
+    await _secureStorage.delete(key: _keyRefreshToken);
   }
 }

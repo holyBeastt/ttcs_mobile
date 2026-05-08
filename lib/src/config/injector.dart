@@ -18,7 +18,8 @@ Future<void> setupInjector() async {
   getIt.registerLazySingleton<LocalStorageService>(
       () => LocalStorageService(secureStorage, prefs));
 
-  getIt.registerLazySingleton<ApiClient>(() => ApiClient());
+  getIt.registerLazySingleton<ApiClient>(
+      () => ApiClient(localStorageService: getIt<LocalStorageService>()));
   
   // Services
   getIt.registerLazySingleton<AuthService>(
